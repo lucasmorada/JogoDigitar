@@ -1,93 +1,57 @@
-:root {
-    --bg-color: #323437;
-    --main-color: #e2b714;
-    --caret-color: #e2b714;
-    --sub-color: #646669;
-    --text-color: #d1d0c5;
-    --error-color: #ca4754;
-}
-
 body {
-    background-color: var(--bg-color);
-    font-family: 'Courier New', Courier, monospace;
+    background: #1e1f26;
+    color: #eee;
+    font-family: "Segoe UI", sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    color: var(--text-color);
 }
 
-#game-wrapper {
-    max-width: 900px;
-    width: 100%;
+.container {
+    width: 80%;
+    max-width: 800px;
+    text-align: center;
+}
+
+.quote-display {
     padding: 20px;
+    background: #2a2c36;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    min-height: 80px;
+    margin-bottom: 20px;
+    color: white;
 }
 
-#header {
-    display: flex;
-    gap: 30px;
-    font-size: 1.5rem;
-    color: var(--main-color);
-    margin-bottom: 10px;
-}
-
-#words-container {
-    position: relative;
-    height: 120px; /* 3 linhas de texto */
-    overflow: hidden;
-    font-size: 24px;
-    line-height: 40px;
-    word-break: break-all;
-}
-
-#words-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    filter: blur(0px);
-    transition: 0.2s;
-}
-
-.word {
-    display: flex;
-    margin-right: 5px;
-}
-
-.letter {
-    color: var(--sub-color);
-    position: relative;
-}
-
-.letter.correct { color: var(--text-color); }
-.letter.incorrect { color: var(--error-color); }
-
-#caret {
-    position: absolute;
-    width: 2px;
-    height: 30px;
-    background-color: var(--caret-color);
-    transition: 0.1s;
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-    50% { opacity: 0; }
-}
-
-#hidden-input {
-    opacity: 0;
-    position: absolute;
-    pointer-events: none;
-}
-
-#restart-btn {
-    margin-top: 30px;
-    background: none;
+.quote-input {
+    width: 100%;
+    height: 100px;
+    font-size: 1.1rem;
+    padding: 10px;
     border: none;
-    color: var(--sub-color);
+    border-radius: 8px;
+    outline: none;
+}
+
+.stats {
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.2rem;
+}
+
+.btn {
+    padding: 10px 20px;
+    background: #4b8bbe;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 1rem;
 }
 
-#restart-btn:hover { color: var(--text-color); }
+.btn:hover {
+    background: #3677a1;
+}

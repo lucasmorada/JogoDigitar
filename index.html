@@ -2,26 +2,27 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>JS Type Master</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Game Zé da Tipagem</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="game-wrapper">
-        <div id="header">
-            <div class="stat-item">tempo: <span id="timer">30</span></div>
-            <div class="stat-item">wpm: <span id="wpm">0</span></div>
-            <div class="stat-item">precisão: <span id="accuracy">100</span>%</div>
+    <div class="container">
+        <h1>Typing Game 🔥</h1>
+
+        <div id="quoteDisplay" class="quote-display"></div>
+
+        <textarea id="quoteInput" class="quote-input" placeholder="Comece a digitar..." autofocus></textarea>
+
+        <div class="stats">
+            <span id="timer">Tempo: 0s</span>
+            <span id="wpm">WPM: 0</span>
+            <span id="accuracy">Acurácia: 0%</span>
         </div>
 
-        <div id="words-container">
-            <div id="caret"></div>
-            <div id="words-wrapper"></div>
-        </div>
-
-        <input type="text" id="hidden-input" autofocus>
-        
-        <button id="restart-btn">Reiniciar (Tab + Enter)</button>
+        <button id="restartBtn" class="btn">Reiniciar</button>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

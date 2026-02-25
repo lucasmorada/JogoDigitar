@@ -1,116 +1,84 @@
-const wordsList = "o rato roeu a roupa do rei de roma java script desenvolvimento web tecnologia teclado rapido codigo fonte aprender praticar constante foco performance interface usuario sistema algoritmo logica programacao".split(" ");
+const quotes = [
+    "O rato roeu a roupa do rei de Roma.",
+    "Javascript é a linguagem mais usada no front-end.",
+    "Geração Z faz código e meme ao mesmo tempo.",
+    "Typings rápidos impressionam no teste de habilidade.",
+    "Nunca pare de aprender e praticar programação.",
+    "Digitar rápido é um superpoder subestimado."
+];
 
-let currentWordIndex = 0;
-let currentCharIndex = 0;
-let startTime = null;
-let timerInterval = null;
-const gameTime = 30;
+const quoteDisplay = document.getElementById("quoteDisplay");
+const quoteInput = document.getElementById("quoteInput");
+const timerText = document.getElementById("timer");
+const wpmText = document.getElementById("wpm");
+const accuracyText = document.getElementById("accuracy");
+const restartBtn = document.getElementById("restartBtn");
 
-const wordsWrapper = document.getElementById('words-wrapper');
-const input = document.getElementById('hidden-input');
-const caret = document.getElementById('caret');
-const timerEl = document.getElementById('timer');
+let startTime, timerInterval;
 
-function initGame() {
-    wordsWrapper.innerHTML = '';
-    // Gera 100 palavras aleatórias
-    for (let i = 0; i < 100; i++) {
-        const wordDiv = document.createElement('div');
-        wordDiv.className = 'word';
-        const randomWord = wordsList[Math.floor(Math.random() * wordsList.length)];
-        
-        randomWord.split('').forEach(char => {
-            const span = document.createElement('span');
-            span.className = 'letter';
-            span.innerText = char;
-            wordDiv.appendChild(span);
-        });
-        wordsWrapper.appendChild(wordDiv);
-    }
-    resetState();
-    updateCaret();
+function getRandomQuote() {
+    return quotes[Math.floor(Math.random() * quotes.length)];
 }
 
-function resetState() {
-    currentWordIndex = 0;
-    currentCharIndex = 0;
+function startGame() {
+    const quote = getRandomQuote();
+    quoteDisplay.textContent = quote;
+    quoteInput.value = "";
+    quoteInput.disabled = false;
+    quoteInput.focus();
     startTime = null;
-    clearInterval(timerInterval);
-    timerEl.innerText = gameTime;
-    input.value = '';
-    input.disabled = false;
-    updateCaret();
+
+    timerText.textContent = "Tempo: 0s";
+    wpmText.textContent = "WPM: 0";
+    accuracyText.textContent = "Acurácia: 100%";
+
+    if (timerInterval) clearInterval(timerInterval);
 }
 
-function updateCaret() {
-    const word = document.querySelectorAll('.word')[currentWordIndex];
-    const letter = word.querySelectorAll('.letter')[currentCharIndex] || word;
-    const rect = letter.getBoundingClientRect();
-    const containerRect = document.getElementById('words-container').getBoundingClientRect();
-
-    caret.style.left = (currentCharIndex === 0 ? rect.left : rect.right) - containerRect.left + 'px';
-    caret.style.top = rect.top - containerRect.top + 'px';
-}
-
-input.addEventListener('input', (e) => {
-    if (!startTime) startTimer();
-
-    const words = document.querySelectorAll('.word');
-    const currentWord = words[currentWordIndex];
-    const letters = currentWord.querySelectorAll('.letter');
-    const val = input.value;
-    const lastChar = val[val.length - 1];
-
-    // Lógica de Espaço (Próxima Palavra)
-    if (lastChar === ' ') {
-        if (val.trim().length > 0) {
-            currentWordIndex++;
-            currentCharIndex = 0;
-            input.value = '';
-        }
-    } else {
-        currentCharIndex = val.length;
-        // Validação visual
-        letters.forEach((s, i) => {
-            if (!val[i]) s.className = 'letter';
-            else if (val[i] === s.innerText) s.className = 'letter correct';
-            else s.className = 'letter incorrect';
-        });
+quoteInput.addEventListener("input", () => {
+    if (!startTime) {
+        startTime = Date.now();
+        timerInterval = setInterval(updateTimer, 1000);
     }
-    updateCaret();
-    calculateStats();
+
+    const quote = quoteDisplay.textContent;
+    const userInput = quoteInput.value;
+
+    let correctChars = 0;
+    for (let i = 0; i < userInput.length; i++) {
+        if (userInput[i] === quote[i]) {
+            correctChars++;
+        }
+    }
+
+    const accuracy = userInput.length > 0 ? ((correctChars / userInput.length) * 100).toFixed(0) : 100;
+    accuracyText.textContent = `Acurácia: ${accuracy}%`;
+
+    if (userInput === quote) {
+        endGame(correctChars);
+    }
 });
 
-function startTimer() {
-    startTime = Date.now();
-    timerInterval = setInterval(() => {
-        const now = Date.now();
-        const diff = Math.floor((now - startTime) / 1000);
-        const remaining = gameTime - diff;
-        timerEl.innerText = remaining;
+function updateTimer() {
+    const seconds = Math.floor((Date.now() - startTime) / 1000);
+    timerText.textContent = `Tempo: ${seconds}s`;
 
-        if (remaining <= 0) {
-            clearInterval(timerInterval);
-            input.disabled = true;
-            alert(`Fim! WPM: ${document.getElementById('wpm').innerText}`);
-        }
-    }, 1000);
+    const wordsTyped = quoteInput.value.trim().split(" ").length;
+    const minutes = seconds / 60;
+    const wpm = minutes > 0 ? Math.floor(wordsTyped / minutes) : 0;
+    wpmText.textContent = `WPM: ${wpm}`;
 }
 
-function calculateStats() {
-    const correctLetters = document.querySelectorAll('.letter.correct').length;
-    const totalTyped = document.querySelectorAll('.letter.correct, .letter.incorrect').length;
-    
-    // WPM: (letras corretas / 5) / (tempo decorrido em minutos)
-    const timeElapsed = (Date.now() - startTime) / 60000 || 0.001;
-    const wpm = Math.round((correctLetters / 5) / timeElapsed);
-    const acc = totalTyped > 0 ? Math.round((correctLetters / totalTyped) * 100) : 100;
+function endGame(correctChars) {
+    clearInterval(timerInterval);
+    quoteInput.disabled = true;
 
-    document.getElementById('wpm').innerText = wpm;
-    document.getElementById('accuracy').innerText = acc;
+    const totalWords = quoteDisplay.textContent.split(" ").length;
+    const totalTime = Math.floor((Date.now() - startTime) / 1000);
+    alert(`🎉 Completo! Tempo: ${totalTime}s — Palavras: ${totalWords}`);
 }
 
-document.getElementById('restart-btn').addEventListener('click', initGame);
-document.body.addEventListener('click', () => input.focus());
+restartBtn.addEventListener("click", startGame);
 
-initGame();
+// Start on load
+startGame();
