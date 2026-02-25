@@ -1,121 +1,27 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IEQ Costeira | Araucária - PR</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>JS Type Master</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="game-wrapper">
+        <div id="header">
+            <div class="stat-item">tempo: <span id="timer">30</span></div>
+            <div class="stat-item">wpm: <span id="wpm">0</span></div>
+            <div class="stat-item">precisão: <span id="accuracy">100</span>%</div>
+        </div>
 
-  <!-- HERO -->
-  <header class="hero">
-    <div class="hero-overlay"></div>
+        <div id="words-container">
+            <div id="caret"></div>
+            <div id="words-wrapper"></div>
+        </div>
 
-    <div class="hero-content reveal">
-      <h1>IEQ Costeira</h1>
-      <p class="subtitle">Uma igreja para viver o propósito de Deus</p>
-
-      <div class="hero-buttons">
-        <a href="#cultos" class="btn primary">Horários de Culto</a>
-        <a href="https://wa.me/5541999999999?text=Olá! Gostaria de falar com a IEQ Costeira 🙏" target="_blank" class="btn ghost">
-          Falar com a Igreja
-        </a>
-      </div>
+        <input type="text" id="hidden-input" autofocus>
+        
+        <button id="restart-btn">Reiniciar (Tab + Enter)</button>
     </div>
-  </header>
-
-  <!-- SOBRE -->
-  <section class="section about reveal" id="sobre">
-    <h2>Quem Somos</h2>
-    <p>
-      A IEQ Costeira é uma igreja que acredita em uma fé viva, relacionamentos reais
-      e no poder do Evangelho para transformar famílias, histórias e destinos.
-    </p>
-
-    <div class="values">
-      <span>Fé</span>
-      <span>Comunhão</span>
-      <span>Família</span>
-      <span>Serviço</span>
-    </div>
-  </section>
-
-  <!-- PASTORES -->
-  <section class="section pastors reveal">
-    <h2>Pastores</h2>
-
-    <div class="pastor-cards">
-      <div class="pastor-card">
-        <img src="https://images.unsplash.com/photo-1603415526960-f7e0328b0a7c" alt="Pastor">
-        <h3>Pr. João Silva</h3>
-        <span>Pastor Presidente</span>
-        <p>“Tudo é possível ao que crê.”</p>
-      </div>
-
-      <div class="pastor-card">
-        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2" alt="Pastora">
-        <h3>Pra. Maria Silva</h3>
-        <span>Pastora</span>
-        <p>“Servir a Deus é amar pessoas.”</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- MINISTÉRIOS -->
-  <section class="section ministries reveal">
-    <h2>Ministérios</h2>
-
-    <div class="ministry-grid">
-      <div class="ministry-card">🎶 <h3>Louvor</h3><p>Adoração que conecta céus e corações.</p></div>
-      <div class="ministry-card">🔥 <h3>Jovens</h3><p>Uma geração firme, relevante e apaixonada.</p></div>
-      <div class="ministry-card">🧸 <h3>Infantil</h3><p>Formando valores desde cedo.</p></div>
-      <div class="ministry-card">🌸 <h3>Mulheres</h3><p>Fortalecidas na fé e no amor.</p></div>
-      <div class="ministry-card">🛡 <h3>Homens</h3><p>Liderança, caráter e propósito.</p></div>
-    </div>
-  </section>
-
-  <!-- HORÁRIOS -->
-  <section class="section cultos reveal" id="cultos">
-    <h2>Horários de Culto</h2>
-
-    <div class="culto-list">
-      <div>🕊 <strong>Domingo</strong> – 19h | Culto da Família</div>
-      <div>🔥 <strong>Quarta</strong> – 19h30 | Culto de Ensino</div>
-      <div>🙌 <strong>Sábado</strong> – Culto de Jovens</div>
-    </div>
-  </section>
-
-  <!-- CONECTE-SE -->
-  <section class="section connect reveal">
-    <h2>Conecte-se</h2>
-
-    <div class="connect-cards">
-      <a href="#" class="connect-card spotify">🎧 Spotify</a>
-      <a href="#" class="connect-card youtube">▶️ YouTube</a>
-    </div>
-  </section>
-
-  <!-- CONTATO -->
-  <section class="section contact reveal">
-    <h2>Fale com a Igreja</h2>
-    <p>Estamos aqui pra te ouvir, orar com você e caminhar juntos.</p>
-
-    <a class="btn primary big" href="https://wa.me/5541999999999?text=Olá! Quero conhecer a IEQ Costeira 🙏" target="_blank">
-      Chamar no WhatsApp
-    </a>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <p><strong>IEQ Costeira</strong> • Araucária – PR</p>
-    <p>“Uma igreja viva, para um Deus vivo.”</p>
-  </footer>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
